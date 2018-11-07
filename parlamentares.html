@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title> Dados Parlamentares </title>
+
+    <!-- Custom styles for this template -->
+	<link rel="stylesheet" href="css/dc.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/crossfilter.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="js/dc.min.js"></script>
+</head>
+<body>
+  <main role="main" class="container">
+
+    <div class='row'>
+	    <div id='partido-chart' class="single-col">
+	      <h4> Deputados por Partido </h4>
+	    </div>  
+    </div>
+
+    <div class='row'>
+      <div id='etaria-chart' class="single-col">
+         <h4> Deputados por Faixa Etária </h4>
+      </div>
+	</div>
+
+	<div class='row'>
+      <div id='uf-chart' class="single-col">
+         <h4> Deputados por Estado </h4>
+      </div>
+	</div>
+
+  </main>
+
+  <script type="text/javascript">
+	// Create the dc.js chart objects & link to div
+	let ufChart = dc.barChart("#uf-chart");
+	let partidoChart = dc.barChart("#partido-chart");
+	let etariaChart = dc.barChart("#etaria-chart");
+
+	// load data from a csv file
+	d3.json("https://dadosabertos.camara.leg.br/api/v2/deputados?itens=400&ordem=ASC&ordenarPor=nome").then(function (dataset) {
+
+		let data = dataset.dados;
+		// Run the data through crossfilter and load our 'facts'
+		let facts = crossfilter(data);
+
+		let partidoDim = facts.dimension(function(d){
+                return d.siglaPartido;
+            });
+		let partidoGroup = partidoDim.group();
+
+		let ufDim = facts.dimension(function(d){
+                return d.siglaUf;
+            });
+		let ufGroup = ufDim.group();
+
+	  	partidoChart
+			.width(800)
+			.height(400)
+			.margins({top: 50, right: 50, bottom: 50, left: 50})
+			.dimension(partidoDim)
+			.group(partidoGroup)
+			.x(d3.scaleBand())
+			.xUnits(dc.units.ordinal)
+			.xAxisLabel('Partidos')
+          	.yAxisLabel('Parlamentares')
+			.brushOn(false);
+
+		ufChart
+			.width(800)
+			.height(400)
+			.margins({top: 50, right: 50, bottom: 50, left: 50})
+			.dimension(ufDim)
+			.group(ufGroup)
+			.x(d3.scaleBand())
+			.xUnits(dc.units.ordinal)
+			.xAxisLabel('Estados')
+          	.yAxisLabel('Parlamentares')
+			.brushOn(false);
+
+		etariaChart
+			.width(800)
+			.height(400)
+			.margins({top: 50, right: 50, bottom: 50, left: 50})
+			.dimension(ufDim)
+			.group(ufGroup)
+			.x(d3.scaleBand())
+			.xUnits(dc.units.ordinal)
+			.xAxisLabel('Faixa Etária')
+          	.yAxisLabel('Parlamentares')
+			.brushOn(false);
+	  	
+	  // Render the Charts
+	  dc.renderAll();
+
+	});
+	</script>
+	 <!-- Bootstrap javascript files -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		
+</body>
+</html>
