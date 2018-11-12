@@ -1,0 +1,258 @@
+<xml>
+  <dados>
+    <valorRef>
+      <id>110</id>
+      <sigla>
+      </sigla>
+      <nome>Sessão Deliberativa</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>112</id>
+      <sigla>
+      </sigla>
+      <nome>Reunião Deliberativa</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>115</id>
+      <sigla>
+      </sigla>
+      <nome>Sessão Não Deliberativa Solene</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>118</id>
+      <sigla>
+      </sigla>
+      <nome>Trabalho de Comissões</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>120</id>
+      <sigla>
+      </sigla>
+      <nome>Audiência Pública</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>130</id>
+      <sigla>
+      </sigla>
+      <nome>Seminário</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>140</id>
+      <sigla>
+      </sigla>
+      <nome>Mesa Redonda</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>150</id>
+      <sigla>
+      </sigla>
+      <nome>Sessão Não Deliberativa de Debates</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>152</id>
+      <sigla>
+      </sigla>
+      <nome>Reunião de Debate</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>160</id>
+      <sigla>
+      </sigla>
+      <nome>Painel</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>170</id>
+      <sigla>
+      </sigla>
+      <nome>Simpósio</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>175</id>
+      <sigla>
+      </sigla>
+      <nome>Sessão Preparatória - Posse</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>177</id>
+      <sigla>
+      </sigla>
+      <nome>Sessão Preparatória - Eleição</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>180</id>
+      <sigla>
+      </sigla>
+      <nome>Reunião de Instalação e Eleição</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>185</id>
+      <sigla>
+      </sigla>
+      <nome>Reunião de Instalação</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>190</id>
+      <sigla>
+      </sigla>
+      <nome>Reunião de Eleição</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>191</id>
+      <sigla>
+      </sigla>
+      <nome>Comissão Geral</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>194</id>
+      <sigla>
+      </sigla>
+      <nome>Debate</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>195</id>
+      <sigla>
+      </sigla>
+      <nome>Outro Evento</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>196</id>
+      <sigla>
+      </sigla>
+      <nome>Diligência</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>197</id>
+      <sigla>
+      </sigla>
+      <nome>Sessão de Eleição</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>198</id>
+      <sigla>
+      </sigla>
+      <nome>Palestra</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>199</id>
+      <sigla>
+      </sigla>
+      <nome>Conferência</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>200</id>
+      <sigla>
+      </sigla>
+      <nome>Ato Solene de Instalação</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>201</id>
+      <sigla>
+      </sigla>
+      <nome>Reunião</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>202</id>
+      <sigla>
+      </sigla>
+      <nome>Sessão Solene</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>203</id>
+      <sigla>
+      </sigla>
+      <nome>Sessão de Debates</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>204</id>
+      <sigla>
+      </sigla>
+      <nome>Sessão Deliberativa</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>205</id>
+      <sigla>
+      </sigla>
+      <nome>Teste do Painel Eletrônico</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>206</id>
+      <sigla>
+      </sigla>
+      <nome>Reunião Técnica</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+    <valorRef>
+      <id>207</id>
+      <sigla>
+      </sigla>
+      <nome>Reunião de Comparecimento de Ministro</nome>
+      <descricao>
+      </descricao>
+    </valorRef>
+  </dados>
+  <links>
+    <link>
+      <rel>self</rel>
+      <href>https://dadosabertos.camara.leg.br/api/v2/referencias/tiposEvento</href>
+    </link>
+  </links>
+</xml>
