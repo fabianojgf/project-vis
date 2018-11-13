@@ -26,6 +26,12 @@
     </div>
 
     <div class='row'>
+	    <div id='sexo-chart' class="single-col">
+	      <h4> Deputados por Sexo </h4>
+	    </div>  
+    </div>
+
+    <div class='row'>
       <div id='etaria-chart' class="single-col">
          <h4> Deputados por Faixa Etária </h4>
       </div>
@@ -42,25 +48,42 @@
   <script type="text/javascript">
 	// Create the dc.js chart objects & link to div
 	let ufChart = dc.barChart("#uf-chart");
+	let sexoChart = dc.barChart("#sexo-chart");
 	let partidoChart = dc.barChart("#partido-chart");
 	let etariaChart = dc.barChart("#etaria-chart");
 
 	// load data from a csv file
-	d3.json("data/CamaraFederal/Deputados/response_1541628.xml").then(function (dataset) {
+	d3.json("data/CamaraFederal/Deputados/response_1541628_full.json").then(function (dataset) {
 
 		let data = dataset.dados;
+
+		// format our data
+		data.forEach(function(d){
+			d.age = parseInt(d.dataNascimento.substr(0,4));
+		});
+
 		// Run the data through crossfilter and load our 'facts'
 		let facts = crossfilter(data);
 
 		let partidoDim = facts.dimension(function(d){
-                return d.siglaPartido;
+                return d.ultimoStatus.siglaPartido;
             });
 		let partidoGroup = partidoDim.group();
 
 		let ufDim = facts.dimension(function(d){
-                return d.siglaUf;
+                return d.ultimoStatus.siglaUf;
             });
 		let ufGroup = ufDim.group();
+
+		let sexoDim = facts.dimension(function(d){
+                return d.sexo;
+            });
+		let sexoGroup = sexoDim.group();
+
+		let idadeDim = facts.dimension(function(d){
+                return 2018 - d.dataNascimento.substr(0,4);
+            });
+		let idadeGroup = idadeDim.group();
 
 	  	partidoChart
 			.width(800)
@@ -71,6 +94,18 @@
 			.x(d3.scaleBand())
 			.xUnits(dc.units.ordinal)
 			.xAxisLabel('Partidos')
+          	.yAxisLabel('Parlamentares')
+			.brushOn(false);
+
+		sexoChart
+			.width(800)
+			.height(400)
+			.margins({top: 50, right: 50, bottom: 50, left: 50})
+			.dimension(sexoDim)
+			.group(sexoGroup)
+			.x(d3.scaleBand())
+			.xUnits(dc.units.ordinal)
+			.xAxisLabel('Sexo')
           	.yAxisLabel('Parlamentares')
 			.brushOn(false);
 
@@ -90,8 +125,8 @@
 			.width(800)
 			.height(400)
 			.margins({top: 50, right: 50, bottom: 50, left: 50})
-			.dimension(ufDim)
-			.group(ufGroup)
+			.dimension(idadeDim)
+			.group(idadeGroup)
 			.x(d3.scaleBand())
 			.xUnits(dc.units.ordinal)
 			.xAxisLabel('Faixa Etária')
