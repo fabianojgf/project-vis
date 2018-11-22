@@ -31,12 +31,7 @@ h2 span {
     position: relative;
 }
 
-#mapid {
-    width: 650px;
-    height: 450px;
-}
-
-#crime-map {
-    width: 900px;
-    height: 900px;
+.states {
+  stroke: #eee;
+  stroke-linejoin: round;
 }
