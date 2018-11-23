@@ -1,33 +1,31 @@
-let width = 960;
-let height = 600;
+let width = 960, height = 600;
 
-let brazilMap = d3.map();
-let greens = d3.schemeGreens[9];
-let color = d3.scaleQuantize().domain([2, 10]).range(greens);
+let quantize = d3.scaleQuantize()
+    .range(d3.schemeGreens[9])
+    .domain([2,10]);
 
-let path = d3.geoPath();
-
-let svg = d3.select("body")
-    .append("svg")
+let svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-let promises = [
-  d3.json("data/br-states.json")
-]
-
+let promises = [d3.json("data/br-states.json")];
 Promise.all(promises).then(ready);
 
-function ready([br]) { 
-    console.log("entrou");
+function ready([br]) {
+    var states = topojson.feature(br, br.objects.states);
+
+    var projection = d3.geoIdentity()
+        .reflectY(true)
+        .fitSize([width,height],states);
+
+    let path = d3.geoPath().projection(projection);
 
     svg.append("g")
-        .attr("class", "states")
-        .selectAll("path")
-        .data(topojson.feature(br, br.objects.states).features)
-        .enter()
-        .append("path")
-        .attr("fill", function(d) { return color(5); })
-        .attr("d", path);
+      .attr("class", "states")
+    .selectAll("path")
+      .data(states.features)
+    .enter().append("path")
+      .attr("fill", function(d) { return quantize(5); })
+      .attr("d", path);
 }
 
