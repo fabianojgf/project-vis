@@ -4,15 +4,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
     <title>Perfil de gastos dos deputados</title>
 
     <!-- Custom styles for this template -->
 	<link rel="stylesheet" href="css/dc.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="materialize/css/materialize.min.css"/>
+    <link href="fontawesome/css/all.css" rel="stylesheet"> <!--load all styles -->
     <script src="js/crossfilter.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="js/dc.min.js"></script>
@@ -40,8 +38,15 @@
         <div class="container">
             <div class="row">
                 <div class="col s12">
-                    <h3>Gráfico 1</h3>
+                    <i class="fas fa-plane"></i>                   
+                    <h3>Despesas por categoria</h3>
+                    <h5>As 10 atividades que geram mais gastos com os parlamentares</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
                     <div id="grafico-despesas"></div>
+                    <div id="grafico-despesas-legenda"></div>
                 </div>
             </div>
         </div>
@@ -49,7 +54,8 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="js/scripts/util.js"></script>
+    <script src="js/scripts/consts.js"></script>
     <script src="js/scripts/data.js"></script>
     <script src="js/scripts/graphs.js"></script>
     <script src="js/scripts/main.js"></script>

@@ -35,3 +35,13 @@ const carregarDeputados = (pagina, objInicial) => {
         });
     });
 };
+
+// Get top n from group
+// https://stackoverflow.com/questions/30977987/plotting-top-values-of-a-group-on-dc-js-bar-chart
+const getTops = (source_group, n) => {
+    return {
+        all: function () {
+            return source_group.top(n);
+        }
+    };
+}
