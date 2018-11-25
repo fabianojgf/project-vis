@@ -18,40 +18,64 @@
     <script src="materialize/js/materialize.min.js"></script>
 </head>
 <body>
-    <section class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <h1>Lorem ipsum</h1>
-                    <p>Vou seguir meu destino
-                        Mesmo com toda dor que há aqui dentro
-                        Não podemos bloquear nossos caminhos
-                        Talvez descobrirás nossa história não foi só um minuto
-                        Sem futuro nenhum pra nós
-                        Mas se agora não dá mais
-                        Pra viver e amar como antes
-                        Talvez por medo de querer</p>
+    <main>
+        <section id="chamada" class="section valign-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12  center-align">
+                        <h3 class="">DESPESAS DA CÂMERA LEGISLATIVA</h3>
+                        <p>Essa página é destinada a fornecer relatórios sobre
+                           as despesas da Câmera Legislativa no ano de 2018, assim
+                           como dar um perfil dos deputados.<br/>Role para baixo para ver
+                           os gráficos ou clique em um dos botões para ir ao gráfico correspondente.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 l2 offset-l3 center-align">
+                        <a class="btn-large">Mapa</a>
+                    </div>
+                    <div class="col s12 l2 center-align">
+                        <a class="btn-large">Por Área</a>
+                    </div>
+                    <div class="col s12 l2 center-align">
+                        <a class="btn-large">Gráfico 1</a>
+                    </div> 
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <i class="fas fa-plane"></i>                   
-                    <h3>Despesas por categoria</h3>
-                    <h5>As 10 atividades que geram mais gastos com os parlamentares</h5>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <h3>Mapa do Aruturo</h3>
+                        <h5>Mapinha top</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div id="mapa"></div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <div id="grafico-despesas"></div>
-                    <div id="grafico-despesas-legenda"></div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <h3>Despesas por categoria</h3>
+                        <h5>As 10 atividades que geram mais gastos com os parlamentares</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div id="grafico-despesas"></div>
+                        <div id="grafico-despesas-legenda"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

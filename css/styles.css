@@ -1,7 +1,16 @@
 /* ========================================================== 
+ * CHAMADA
+ * ========================================================== */
+#chamada {
+    background-image: url("../images/camara-legislativa.jpg");
+    background-position: center;
+    position: relative;
+    min-height: 640px;
+    padding-top: 0;
+}
+/* ========================================================== 
  * GRÁFICOS DO DC
  * ========================================================== */
-
 #grafico-despesas {
     width: 100%;
     min-height: 600px;

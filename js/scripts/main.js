@@ -6,6 +6,7 @@ $(document).ready(() => {
         console.log(deputados);
         carregarDespesas(2018).then(despesas => {
             graficoDespesas('#grafico-despesas', despesas);
+            desenharMapa('#mapa');
         }).catch(err => {
             console.log(err);
         })
