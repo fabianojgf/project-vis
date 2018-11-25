@@ -40,7 +40,7 @@ const graficoDespesas = (seletor, despesas) => {
         return acc
     }, '');
 
-    $(`#grafico-despesas-legenda`).append(legendContent).css('right', $(document).width()*0.2);
+    $(`#grafico-despesas-legenda`).append(legendContent).css('right', $(document).width()*0.2).css('display', 'block');
     
     dc.renderAll();
 };

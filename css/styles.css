@@ -8,6 +8,7 @@
 }
 
 #grafico-despesas-legenda {
+    display: none;
     position: absolute;
     right: 0;
     padding: 20px;
@@ -21,13 +22,13 @@
     height: 20px;
 }
 
-<<<<<<< HEAD
 .states {
   fill: none;
   stroke: #eee;
   stroke-width: 1;
   stroke-linejoin: round;
-=======
+}
+
 #grafico-despesas-legenda p {
     display:inline;
     margin-left: 14px;
@@ -39,7 +40,6 @@ svg .x .tick text{
     font-style: normal;
     font-weight: 900;
     font-family: 'Font Awesome 5 Free';
->>>>>>> 50116fa10f142792324c5d5a45aabe47972c6014
 }
 
 /* ========================================================== */
