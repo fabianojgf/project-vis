@@ -2,38 +2,44 @@
  * GRÁFICOS DO DC
  * ========================================================== */
 
-
-
-
-/* ========================================================== */
-body {
-    padding-top: 50px;
-    font-family: "helvetica"
+#grafico-despesas {
+    width: 100%;
+    min-height: 600px;
 }
 
-h4 span {
-    font-size:14px;
-    font-weight:normal;
-}
-  
-h2 {
-    float: right;
-  }
-  
-h2 span {
-    font-size:14px;
-    font-weight:normal;
+#grafico-despesas-legenda {
+    position: absolute;
+    right: 0;
+    padding: 20px;
+    border: 1px solid black;
+    background-color: rgba(100, 100, 100, 0.2);
 }
 
-.single-col {
-    padding-right:15px;
-    padding-left:15px;
-    position: relative;
+#grafico-despesas-legenda i {
+    font-size: 16px;
+    width: 20px;
+    height: 20px;
 }
 
+<<<<<<< HEAD
 .states {
   fill: none;
   stroke: #eee;
   stroke-width: 1;
   stroke-linejoin: round;
+=======
+#grafico-despesas-legenda p {
+    display:inline;
+    margin-left: 14px;
+    font-size: 12px;
 }
+
+svg .x .tick text{
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    font-family: 'Font Awesome 5 Free';
+>>>>>>> 50116fa10f142792324c5d5a45aabe47972c6014
+}
+
+/* ========================================================== */
