@@ -45,3 +45,14 @@ const getTops = (source_group, n) => {
         }
     };
 }
+
+const extrairPartidos = (deputados) => {
+    let facts = crossfilter(deputados);
+    let partidoDim = facts.dimension(d => {
+        return d.siglaPartido;
+    });
+
+    let partidoGroup = partidoDim.group();
+
+    return partidoGroup.all().map(p => p.key);
+}

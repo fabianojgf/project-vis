@@ -20,36 +20,39 @@
     <main>
         <section id="chamada" class="section valign-wrapper">
             <div class="valign-wrapper">
-
-            <div class="container">
-                <div class="row">
-                    <div class="col s12 center-align">
-                        <h3 class="">DESPESAS DA CÂMERA LEGISLATIVA</h3>
-                        <p>Essa página é destinada a fornecer relatórios sobre
-                           as despesas da Câmera Legislativa no ano de 2018, assim
-                           como dar um perfil dos deputados.                        </p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12 center-align">
+                            <h3 class="">DESPESAS DA CÂMERA LEGISLATIVA</h3>
+                            <p>Essa página é destinada a fornecer relatórios sobre
+                            as despesas da Câmera Legislativa no ano de 2018, assim
+                            como dar um perfil dos deputados.                        </p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 l2 center-align">
-                        <a href="#section-perfis" class="btn-large deep-orange lighten-2">Perfis(ajeita)</a>
-                    </div>
-                    <div class="col s12 l2 center-align">
-                        <a href="#section-partidos" class="btn-large deep-orange lighten-2">Partidos(pfvr)</a>
-                    </div>
-                    <div class="col s12 l2 offset-l3 center-align">
-                        <a href="#section-mapa" class="btn-large deep-orange lighten-2">Mapa</a>
-                    </div>
-                    <div class="col s12 l2 center-align">
-                        <a href="#section-area" class="btn-large deep-orange lighten-2">Por Área</a>
-                    </div>
-                    <div class="col s12 l2 center-align">
-                        <a class="btn-large deep-orange lighten-2">Gráfico 1</a>
-                    </div> 
+                    <div class="row">
+                        <div class="col s12 l2 center-align">
+                            <a href="#section-perfis" class="btn-large deep-orange lighten-2">Perfis(ajeita)</a>
+                        </div>
+                        <div class="col s12 l2 center-align">
+                            <a href="#section-partidos" class="btn-large deep-orange lighten-2">Partidos(pfvr)</a>
+                        </div>
+                        <div class="col s12 l2 offset-l3 center-align">
+                            <a href="#section-mapa" class="btn-large deep-orange lighten-2">Mapa</a>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 l2 offset-l3 center-align">
+                                <a href="#section-mapa" class="btn-large deep-orange lighten-2">Mapa</a>
+                            </div>
+                            <div class="col s12 l2 center-align">
+                                <a href="#section-area" class="btn-large deep-orange lighten-2">Por Área</a>
+                            </div>
+                            <div class="col s12 l2 center-align">
+                                <a class="btn-large deep-orange lighten-2">Gráfico 1</a>
+                            </div> 
+                        </div>
+                    </div>   
                 </div>
             </div>
-            
-        </div>
         </section>
         <section id="section-perfis" class="section">
             <div class="container">
@@ -82,6 +85,11 @@
             </div>
         </section>
         <section id="section-mapa" class="section">
+            <!-- Dropdown Trigger -->
+            <a class='dropdown-trigger btn' data-target='partidos-dropdown'>Filtrar por partido</a>
+
+            <!-- Dropdown Structure -->
+            <ul id='partidos-dropdown' class='dropdown-content'></ul>
             <div class="container">
                 <div class="row">
                     <div class="col s12">
