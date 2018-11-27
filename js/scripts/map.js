@@ -1,9 +1,9 @@
-const getColor = (stateName) => {
+const getColor = (regionName) => {
   var scheme = d3.schemeCategory10;
 
-  console.log(stateName);
+  console.log(regionName);
 
-  switch(stateName){
+  switch(regionName){
     case 'CENTRO-OESTE':
       return scheme[1];
     case 'SUL':
@@ -56,6 +56,8 @@ const desenharMapa = (seletor) => {
           .style("cursor", "default")
           .attr("stroke-width", 1)
           .attr("stroke","#eee");
-        });
+        })
+        .append("svg:title")
+          .text(function(d) { return d.properties.name; });;
   }
 };
