@@ -1,7 +1,7 @@
 const getColor = (regionName) => {
   var scheme = d3.schemeCategory10;
 
-  console.log(regionName);
+  //console.log(regionName);
 
   switch(regionName){
     case 'CENTRO-OESTE':
@@ -19,7 +19,93 @@ const getColor = (regionName) => {
   }
 };
 
-const desenharMapa = (seletor) => {
+const nameToAbbrv = (stateName) => {
+  switch(stateName){
+    case "ACRE" : return "AC"; 
+    case "ALAGOAS" : return "AL";  
+    case "AMAZONAS" : return "AM";  
+    case "AMAPÁ" : return "AP";  
+    case "BAHIA" : return "BA"; 
+    case "CEARÁ" : return "CE"; 
+    case "DISTRITO FEDERAL" : return "DF"; 
+    case "ESPIRITO SANTO" : return "ES"; 
+    case "GOIÁS" : return "GO";  
+    case "MARANHÃO" : return "MA";
+    case "MINAS GERAIS" : return "MG"; 
+    case "MATO GROSSO DO SUL" : return "MS"; 
+    case "MATO GROSSO" : return "MT";  
+    case "PARÁ" : return "PA"; 
+    case "PARAÍBA" : return "PB";  
+    case "PERNAMBUCO" : return "PE"; 
+    case "PIAUÍ" : return "PI";
+    case "PARANÁ" : return "PR"; 
+    case "RIO DE JANEIRO" : return "RJ";  
+    case "RIO GRANDE DO NORTE" : return "RN";  
+    case "RONDÔNIA" : return "RO";  
+    case "RORAIMA" : return "RR"; 
+    case "RIO GRANDE DO SUL" : return "RS"; 
+    case "SANTA CATARINA" : return "SC"; 
+    case "SERGIPE" : return "SE"; 
+    case "SÃO PAULO" : return "SP"; 
+    case "TOCANTINS" : return "TO"; 
+  }
+
+  return "desconhecido";
+}
+
+const abbrvToName = (stateAbbrv) => {
+var data = "desconhecido";
+
+  switch(stateAbbrv){
+    case "AC" : data = "Acre";          break;
+    case "AL" : data = "Alagoas";       break;
+    case "AM" : data = "Amazonas";        break;
+    case "AP" : data = "Amapá";         break;
+    case "BA" : data = "Bahia";         break;
+    case "CE" : data = "Ceará";         break;
+    case "DF" : data = "Distrito Federal";    break;
+    case "ES" : data = "Espírito Santo";    break;
+    case "GO" : data = "Goiás";         break;
+    case "MA" : data = "Maranhão";        break;
+    case "MG" : data = "Minas Gerais";      break;
+    case "MS" : data = "Mato Grosso do Sul";  break;
+    case "MT" : data = "Mato Grosso";     break;
+    case "PA" : data = "Pará";          break;
+    case "PB" : data = "Paraíba";       break;
+    case "PE" : data = "Pernambuco";      break;
+    case "PI" : data = "Piauí";         break;
+    case "PR" : data = "Paraná";        break;
+    case "RJ" : data = "Rio de Janeiro";    break;
+    case "RN" : data = "Rio Grande do Norte"; break;
+    case "RO" : data = "Rondônia";        break;
+    case "RR" : data = "Roraima";       break;
+    case "RS" : data = "Rio Grande do Sul";   break;
+    case "SC" : data = "Santa Catarina";    break;
+    case "SE" : data = "Sergipe";       break;
+    case "SP" : data = "São Paulo";       break;
+    case "TO" : data = "Tocantíns";       break;
+  }
+
+  return data.toUpperCase();
+}
+
+const estadoCalc = (group, sigla) => { 
+    return group.all().filter(function(item) { 
+      return item.key === sigla; 
+    })[0].value
+};
+
+const desenharMapa = (seletor, deputados) => {
+  let facts = crossfilter(deputados);
+
+  let estadoDim = facts.dimension(d => {
+        return d.siglaUf;
+  });
+
+  let estadoGroup = estadoDim.group().reduceCount();
+
+  console.log(estadoCalc(estadoGroup, "CE"));
+
   let width = 960, height = 600;
 
   let svg = d3.select(seletor).append("svg")
@@ -58,6 +144,11 @@ const desenharMapa = (seletor) => {
           .attr("stroke","#eee");
         })
         .append("svg:title")
-          .text(function(d) { return d.properties.name; });;
+          .text(function(d) { 
+            var fullName = d.properties.name;
+            var abbrv = nameToAbbrv(d.properties.name);
+            return fullName + "\n" + 
+            estadoCalc(estadoGroup, abbrv) + " deputados."; 
+          });
   }
 };
