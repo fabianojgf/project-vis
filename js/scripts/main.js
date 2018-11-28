@@ -10,24 +10,27 @@ const dropdownPartidos = (trigger, container, partidos) => {
     $(trigger).dropdown();   
 };
 
-
 // Ponto de entrada
 // Página carregada
 $(document).ready(() => {
     // Carrega os dados
     carregarDeputados(1, []).then(deputados => {
         let partidos = extrairPartidos(deputados);
-        dropdownPartidos('.dropdown-trigger', '#partidos-dropdown', partidos);
-        buildProfiles('#quadro-deputados', 
-                      '#section-perfis .pagination', 
-                      deputados);
-        
-        /*carregarDespesas(2018).then(despesas => {
-            graficoDespesas('#grafico-despesas', despesas);
-            desenharMapas('#mapa', deputados, '#mapa2', despesas);
+        dropdownPartidos(seletores.dropdownPartidos.trigger, 
+                         seletores.dropdownPartidos.main,
+                         partidos);
+       
+        carregarDespesas(2018).then(despesas => {
+            console.log(despesas);
+            buildProfiles(seletores.quadroDeputados.main, 
+                seletores.quadroDeputados.pagination, 
+                despesas,
+                deputados);
+            graficoDespesas(despesas);
+            // desenharMapas(seletores.mapaDeputados, deputados, seletores.mapaDespesas, despesas);
         }).catch(err => {
             console.log(err);
-        })*/
+        })
     }).catch(err => {
         console.log(err);
     })

@@ -1,4 +1,4 @@
-const buildProfiles = (seletor, paginacao, deputados) => {
+const buildProfiles = (seletor, paginacao, despesas, deputados) => {
     console.log(deputados);
     let linhas = 5;
     let deputados_por_linha = 10;
@@ -25,7 +25,9 @@ const buildProfiles = (seletor, paginacao, deputados) => {
                     $(`#${id}`).click(() => {
                         $(`.foto-deputado`).removeClass('active');
                         $(`#${id}`).addClass('active');
-                        //chooseDeputy(deputados[index]);
+                        
+                       let despesasDeputado = despesas.filter(d => d.idecadastro == id);
+                       filtrarPorDeputado(deputados[index], despesasDeputado);
                     });
                 }
             }
@@ -34,7 +36,6 @@ const buildProfiles = (seletor, paginacao, deputados) => {
         $(paginacao).append(`<li id="pagination-${i+1}" class="pagination-btn waves-effect"><a href="#!">${i+1}</a></li>`);
 
         $(`#pagination-${i+1}`).click(() => {
-            console.log(i);
             $(`${seletor} .quadro`).css('display', 'none');
             $(`${seletor} .quadro.${i}`).css('display', 'block');
             $(`${paginacao} .pagination-btn`).removeClass('active');
@@ -54,3 +55,9 @@ const showcaseDeputado = (deputado) => {
     $(`${showcase} .foto`).attr('src', `../../images/fotos_deputados/${deputado.id}.jpg`);
 };
 
+const filtrarPorDeputado = (dadosDeputado, despesasDeputado) => {
+    console.log(despesasDeputado);
+    $(seletores.graficoDespesas.main).empty();
+    $(seletores.graficoDespesas.legenda).empty();
+    graficoDespesas(despesasDeputado);
+};
