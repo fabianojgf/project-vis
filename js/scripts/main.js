@@ -27,7 +27,7 @@ $(document).ready(() => {
                 despesas,
                 deputados);
             graficoDespesas(despesas);
-            // desenharMapas(seletores.mapaDeputados, deputados, seletores.mapaDespesas, despesas);
+            desenharMapa(seletores.mapaDeputados, deputados, despesas);
         }).catch(err => {
             console.log(err);
         })

@@ -1,26 +1,6 @@
 //===================================================
 //AUX FUNCS
-
-const getMap1Color = (regionName) => {
-  var scheme = d3.schemeCategory10;
-
-  switch(regionName){
-    case 'CENTRO-OESTE':
-      return scheme[1];
-    case 'SUL':
-      return scheme[9];
-    case 'SUDESTE':
-      return scheme[0];
-    case 'NORTE':
-      return scheme[2];
-    case 'NORDESTE':
-      return scheme[3];
-    default:
-      return scheme[7];
-  }
-};
-
-const getMap2Color = (minValue, maxValue, currentValue) => {
+const getMapColor = (minValue, maxValue, currentValue) => {
   var redLinear = d3.scaleSequential(d3.interpolateReds).domain([minValue, maxValue]);
   return redLinear(currentValue);
 };
@@ -89,13 +69,13 @@ const switchName = (textValue) => {
     case "TO" : return "Tocantíns";  
   }
 
-  return "desconhecido";
+  return "?";
 }
 
 //===================================================
 //DRAW STUFF 
 
-const desenharMapas = (seletor1, deputados, seletor2, despesas) => {
+const desenharMapa = (seletor, deputados, despesas) => {
   //número de deputados =================
   let facts = crossfilter(deputados);
   let estadoDim = facts.dimension(d => {
@@ -128,19 +108,19 @@ const desenharMapas = (seletor1, deputados, seletor2, despesas) => {
   });
   despesasGroup = despesasDim.group();
 
+  var despesasExtent = d3.extent(despesasGroup.all(), d => {return d.value});
+  var despesasMin = despesasExtent[0];
+  var despesasMax = despesasExtent[1];
+
   //geografia do mapa ====================
   let width = 960, height = 600;
 
-  let svg1 = d3.select(seletor1).append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-  let svg2 = d3.select(seletor2).append("svg")
+  let svg = d3.select(seletor).append("svg")
     .attr("width", width)
     .attr("height", height);
 
   let promises = [d3.json("data/br-states.json")];
-  Promise.all(promises).then(ready);
+  Promise.all(promises).then(ready).then(legenda);
 
   function ready([br]) {
       var states = topojson.feature(br, br.objects.states);
@@ -151,40 +131,8 @@ const desenharMapas = (seletor1, deputados, seletor2, despesas) => {
 
       let path = d3.geoPath().projection(projection);
 
-      //mapa1
-      svg1.append("g")
-        .attr("class", "states")
-      .selectAll("path")
-        .data(states.features)
-      .enter().append("path")
-        .attr("fill", function(d) { return getMap1Color(d.properties.region);})
-        .attr("d", path)
-      .on("mouseover", function(d){
-          d3.select(this)
-          .style("cursor", "pointer")
-          .attr("stroke-width", 5)
-          .attr("stroke","#FFF5B1");
-        })
-        .on("mouseout", function(d){
-          d3.select(this)
-          .style("cursor", "default")
-          .attr("stroke-width", 1)
-          .attr("stroke","#eee");
-        })
-        .append("svg:title")
-          .text(function(d) { 
-            var fullName = d.properties.name;
-            var abbrv = switchName(d.properties.name);
-            return fullName + ":\n" + 
-            estadoCalc(estadoGroup, abbrv) + " deputados"; 
-          });
-
-      //mapa2
-      var despesasExtent = d3.extent(despesasGroup.all(), d => {return d.value});
-      var despesasMin = despesasExtent[0];
-      var despesasMax = despesasExtent[1];
-
-      svg2.append("g")
+      //desenho do mapa
+      svg.append("g")
         .attr("class", "states")
       .selectAll("path")
         .data(states.features)
@@ -193,7 +141,7 @@ const desenharMapas = (seletor1, deputados, seletor2, despesas) => {
           var regionName = d.properties.name;
           var regionAbbrv = switchName(regionName);
           var regionValue = estadoCalc(despesasGroup, regionAbbrv);
-          var finalColor = getMap2Color(despesasMin, despesasMax, regionValue);
+          var finalColor = getMapColor(despesasMin, despesasMax, regionValue);
           return finalColor;
         })
         .attr("d", path)
@@ -213,9 +161,15 @@ const desenharMapas = (seletor1, deputados, seletor2, despesas) => {
           .text(function(d) { 
             var fullName = d.properties.name;
             var abbrv = switchName(d.properties.name);
-            return fullName + ":\n" + 
-            "Gasto total de R$ " + estadoCalc(despesasGroup, abbrv) + " no exercício da função"; 
+            return fullName + ":\n" +
+            estadoCalc(estadoGroup, abbrv) + " deputados gastaram cerca de \n" + 
+            "R$ " + estadoCalc(despesasGroup, abbrv) + " no exercício da função"; 
           });
+
+      
+  }
+
+  function legenda(){
+    console.log("entrou");
   }
 };
-
