@@ -22,6 +22,7 @@ $(document).ready(() => {
         carregarDespesas(2018).then(despesas => {
             graficoDespesas('#grafico-despesas', despesas);
             desenharMapas('#mapa', deputados, '#mapa2', despesas);
+            buildProfiles('#quadro-deputados', '#section-perfis .pagination', deputados);
         }).catch(err => {
             console.log(err);
         })
