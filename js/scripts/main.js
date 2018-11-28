@@ -18,14 +18,16 @@ $(document).ready(() => {
     carregarDeputados(1, []).then(deputados => {
         let partidos = extrairPartidos(deputados);
         dropdownPartidos('.dropdown-trigger', '#partidos-dropdown', partidos);
+        buildProfiles('#quadro-deputados', 
+                      '#section-perfis .pagination', 
+                      deputados);
         
-        carregarDespesas(2018).then(despesas => {
+        /*carregarDespesas(2018).then(despesas => {
             graficoDespesas('#grafico-despesas', despesas);
             desenharMapas('#mapa', deputados, '#mapa2', despesas);
-            buildProfiles('#quadro-deputados', '#section-perfis .pagination', deputados);
         }).catch(err => {
             console.log(err);
-        })
+        })*/
     }).catch(err => {
         console.log(err);
     })

@@ -37,10 +37,42 @@ html {
 #quadro-deputados .foto-deputado {
     width: 10%;
     display: inline-block;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+#quadro-deputados .foto-deputado:hover {
+    cursor: pointer;
 }
 
 #quadro-deputados .quadro {
     display: none;
+}
+
+#quadro-deputados-showcase {
+    display: none;
+}
+
+#quadro-deputados-showcase p {
+    margin: 0;
+}
+
+#quadro-deputados .foto-deputado.active {
+    -webkit-filter: none;
+    filter: none;
+}
+
+#quadro-deputados-showcase .row {
+    margin-bottom: 0;
+}
+
+#quadro-deputados-showcase .foto {
+    width: 100%;
+    box-shadow: 0px 0px 10px rgba(100,100,100,0.2);
+}
+
+#quadro-deputados-showcase .subtitulo {
+    font-weight: 600;
 }
 
 #quadro-deputados .foto-deputado img {
