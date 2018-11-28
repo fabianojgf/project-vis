@@ -1,7 +1,8 @@
-const getColor = (regionName) => {
-  var scheme = d3.schemeCategory10;
+//===================================================
+//AUX FUNCS
 
-  //console.log(regionName);
+const getMap1Color = (regionName) => {
+  var scheme = d3.schemeCategory10;
 
   switch(regionName){
     case 'CENTRO-OESTE':
@@ -19,8 +20,19 @@ const getColor = (regionName) => {
   }
 };
 
-const nameToAbbrv = (stateName) => {
-  switch(stateName){
+const getMap2Color = (minValue, maxValue, currentValue) => {
+  var redLinear = d3.scaleSequential(d3.interpolateReds).domain([minValue, maxValue]);
+  return redLinear(currentValue);
+};
+
+const estadoCalc = (group, sigla) => { 
+    return group.all().filter(function(item) { 
+      return item.key === sigla; 
+    })[0].value
+};
+
+const switchName = (textValue) => {
+  switch(textValue){
     case "ACRE" : return "AC"; 
     case "ALAGOAS" : return "AL";  
     case "AMAZONAS" : return "AM";  
@@ -48,67 +60,82 @@ const nameToAbbrv = (stateName) => {
     case "SERGIPE" : return "SE"; 
     case "SÃO PAULO" : return "SP"; 
     case "TOCANTINS" : return "TO"; 
+    case "AC" : return "Acre";
+    case "AL" : return "Alagoas";   
+    case "AM" : return "Amazonas";     
+    case "AP" : return "Amapá";    
+    case "BA" : return "Bahia";     
+    case "CE" : return "Ceará";   
+    case "DF" : return "Distrito Federal"; 
+    case "ES" : return "Espírito Santo"; 
+    case "GO" : return "Goiás";     
+    case "MA" : return "Maranhão";  
+    case "MG" : return "Minas Gerais";   
+    case "MS" : return "Mato Grosso do Sul";  
+    case "MT" : return "Mato Grosso"; 
+    case "PA" : return "Pará";      
+    case "PB" : return "Paraíba";   
+    case "PE" : return "Pernambuco";
+    case "PI" : return "Piauí";   
+    case "PR" : return "Paraná";       
+    case "RJ" : return "Rio de Janeiro";   
+    case "RN" : return "Rio Grande do Norte";
+    case "RO" : return "Rondônia";    
+    case "RR" : return "Roraima"; 
+    case "RS" : return "Rio Grande do Sul"; 
+    case "SC" : return "Santa Catarina";  
+    case "SE" : return "Sergipe"; 
+    case "SP" : return "São Paulo";
+    case "TO" : return "Tocantíns";  
   }
 
   return "desconhecido";
 }
 
-const abbrvToName = (stateAbbrv) => {
-var data = "desconhecido";
+//===================================================
+//DRAW STUFF 
 
-  switch(stateAbbrv){
-    case "AC" : data = "Acre";          break;
-    case "AL" : data = "Alagoas";       break;
-    case "AM" : data = "Amazonas";        break;
-    case "AP" : data = "Amapá";         break;
-    case "BA" : data = "Bahia";         break;
-    case "CE" : data = "Ceará";         break;
-    case "DF" : data = "Distrito Federal";    break;
-    case "ES" : data = "Espírito Santo";    break;
-    case "GO" : data = "Goiás";         break;
-    case "MA" : data = "Maranhão";        break;
-    case "MG" : data = "Minas Gerais";      break;
-    case "MS" : data = "Mato Grosso do Sul";  break;
-    case "MT" : data = "Mato Grosso";     break;
-    case "PA" : data = "Pará";          break;
-    case "PB" : data = "Paraíba";       break;
-    case "PE" : data = "Pernambuco";      break;
-    case "PI" : data = "Piauí";         break;
-    case "PR" : data = "Paraná";        break;
-    case "RJ" : data = "Rio de Janeiro";    break;
-    case "RN" : data = "Rio Grande do Norte"; break;
-    case "RO" : data = "Rondônia";        break;
-    case "RR" : data = "Roraima";       break;
-    case "RS" : data = "Rio Grande do Sul";   break;
-    case "SC" : data = "Santa Catarina";    break;
-    case "SE" : data = "Sergipe";       break;
-    case "SP" : data = "São Paulo";       break;
-    case "TO" : data = "Tocantíns";       break;
-  }
-
-  return data.toUpperCase();
-}
-
-const estadoCalc = (group, sigla) => { 
-    return group.all().filter(function(item) { 
-      return item.key === sigla; 
-    })[0].value
-};
-
-const desenharMapa = (seletor, deputados) => {
+const desenharMapas = (seletor1, deputados, seletor2, despesas) => {
+  //número de deputados =================
   let facts = crossfilter(deputados);
-
   let estadoDim = facts.dimension(d => {
         return d.siglaUf;
   });
-
   let estadoGroup = estadoDim.group().reduceCount();
 
-  console.log(estadoCalc(estadoGroup, "CE"));
+  //despesas por Estado =================
+  let facts2 = crossfilter(despesas);
+  let despesasDim = facts2.dimension(d => {
+        var sgUF = d.sgUF;
+        var vlrDocumento = d.vlrDocumento;
+        var numeroValor = parseFloat(vlrDocumento.replace(",", "."));
 
+        return JSON.stringify ({sigla: sgUF, valor: numeroValor});
+  });
+  let despesasGroup = despesasDim.group();
+
+  despesasGroup.all().forEach(d => {
+    var sigla = JSON.parse(d.key).sigla;
+    var valor = JSON.parse(d.key).valor;
+
+    d.key = sigla;
+    d.value = valor;
+  });
+
+  facts2 = crossfilter(despesasGroup.all());
+  despesasDim = facts2.dimension(d => {
+        return d.key;
+  });
+  despesasGroup = despesasDim.group();
+
+  //geografia do mapa ====================
   let width = 960, height = 600;
 
-  let svg = d3.select(seletor).append("svg")
+  let svg1 = d3.select(seletor1).append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  let svg2 = d3.select(seletor2).append("svg")
     .attr("width", width)
     .attr("height", height);
 
@@ -124,12 +151,13 @@ const desenharMapa = (seletor, deputados) => {
 
       let path = d3.geoPath().projection(projection);
 
-      svg.append("g")
+      //mapa1
+      svg1.append("g")
         .attr("class", "states")
       .selectAll("path")
         .data(states.features)
       .enter().append("path")
-        .attr("fill", function(d) { return getColor(d.properties.region);})
+        .attr("fill", function(d) { return getMap1Color(d.properties.region);})
         .attr("d", path)
       .on("mouseover", function(d){
           d3.select(this)
@@ -146,9 +174,48 @@ const desenharMapa = (seletor, deputados) => {
         .append("svg:title")
           .text(function(d) { 
             var fullName = d.properties.name;
-            var abbrv = nameToAbbrv(d.properties.name);
-            return fullName + "\n" + 
-            estadoCalc(estadoGroup, abbrv) + " deputados."; 
+            var abbrv = switchName(d.properties.name);
+            return fullName + ":\n" + 
+            estadoCalc(estadoGroup, abbrv) + " deputados"; 
+          });
+
+      //mapa2
+      var despesasExtent = d3.extent(despesasGroup.all(), d => {return d.value});
+      var despesasMin = despesasExtent[0];
+      var despesasMax = despesasExtent[1];
+
+      svg2.append("g")
+        .attr("class", "states")
+      .selectAll("path")
+        .data(states.features)
+      .enter().append("path")
+        .attr("fill", function(d) { 
+          var regionName = d.properties.name;
+          var regionAbbrv = switchName(regionName);
+          var regionValue = estadoCalc(despesasGroup, regionAbbrv);
+          var finalColor = getMap2Color(despesasMin, despesasMax, regionValue);
+          return finalColor;
+        })
+        .attr("d", path)
+      .on("mouseover", function(d){
+          d3.select(this)
+          .style("cursor", "pointer")
+          .attr("stroke-width", 5)
+          .attr("stroke","#FFF5B1");
+        })
+        .on("mouseout", function(d){
+          d3.select(this)
+          .style("cursor", "default")
+          .attr("stroke-width", 1)
+          .attr("stroke","#eee");
+        })
+        .append("svg:title")
+          .text(function(d) { 
+            var fullName = d.properties.name;
+            var abbrv = switchName(d.properties.name);
+            return fullName + ":\n" + 
+            "Gasto total de R$ " + estadoCalc(despesasGroup, abbrv) + " no exercício da função"; 
           });
   }
 };
+
