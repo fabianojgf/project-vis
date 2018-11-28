@@ -20,18 +20,9 @@ $(document).ready(() => {
         dropdownPartidos('.dropdown-trigger', '#partidos-dropdown', partidos);
         
         carregarDespesas(2018).then(despesas => {
-<<<<<<< HEAD
-            graficoDespesas('#grafico-despesas', despesas);
-            desenharMapa('#mapa', deputados);
-=======
-            
-            
-
-
-            
+            buildProfiles('#quadro-deputados', '#section-perfis .pagination', deputados);
             //graficoDespesas('#grafico-despesas', despesas);
-            //desenharMapa('#mapa');
->>>>>>> 2483f6b53f01b9616a485570deae505171c3820b
+            //desenharMapa('#mapa', deputados);
         }).catch(err => {
             console.log(err);
         })
