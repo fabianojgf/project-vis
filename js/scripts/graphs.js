@@ -1,5 +1,6 @@
-const graficoDespesas = (despesas) => {
-    let barchart = dc.barChart(seletores.graficoDespesas.main);
+const graficoDespesas = (seletor, despesas) => {
+    console.log(despesas);
+    let barchart = dc.barChart(seletor);
 
     let facts = crossfilter(despesas);
     
@@ -7,15 +8,15 @@ const graficoDespesas = (despesas) => {
         return d.txtDescricao;
     });
 
-    let descGroup = descDim.group().reduceSum(d => {
-        return parseFloat(d.vlrLiquido);
-    });
+    let descGroup = descDim.group();
 
     let top = descGroup.top(10);
     let domain_x = top.map(d => d.key);
+
     let despesasX = d3.scaleOrdinal().domain(domain_x);
+
     var topTen = getTops(descGroup, 10);
-    
+
     barchart.width(null)
             .margins({top: 50, right: 50, bottom: 25, left: 60})
             .height(null)
@@ -40,8 +41,8 @@ const graficoDespesas = (despesas) => {
     }, '');
 
     // Fixando a legenda no local correto dependendo do tamanho da tela
-    $(seletores.graficoDespesas.legenda).append(legendContent)
-                                        .css('right', $(document).width()*0.2)
-                                        .css('display', 'block');
+    $(`#grafico-despesas-legenda`).append(legendContent)
+                                    .css('right', $(document).width()*0.2)
+                                    .css('display', 'block');
     dc.renderAll();
 };

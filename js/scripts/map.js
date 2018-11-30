@@ -120,7 +120,7 @@ const desenharMapa = (seletor, deputados, despesas) => {
     .attr("height", height);
 
   let promises = [d3.json("data/br-states.json")];
-  Promise.all(promises).then(ready).then(legenda);
+  Promise.all(promises).then(ready);
 
   function ready([br]) {
       var states = topojson.feature(br, br.objects.states);
@@ -166,10 +166,54 @@ const desenharMapa = (seletor, deputados, despesas) => {
             "R$ " + estadoCalc(despesasGroup, abbrv) + " no exercício da função"; 
           });
 
-      
+      legenda(10);
   }
 
-  function legenda(){
-    console.log("entrou");
-  }
+  function legenda(numberOfBins){
+    var w = 960, h = 60;
+    var redLinear = d3.scaleSequential(d3.interpolateReds).domain([despesasMin, despesasMax]);
+
+    var key = d3.select("#mapa-legenda")
+      .append("svg")
+      .attr("width", w)
+      .attr("height", h);
+
+    var legend = key.append("defs")
+      .append("svg:linearGradient")
+      .attr("id", "gradient")
+      .attr("x1", "0%")
+      .attr("y1", "100%")
+      .attr("x2", "100%")
+      .attr("y2", "100%")
+      .attr("spreadMethod", "pad");
+
+      for(i = 0; i < numberOfBins; i++){
+        var offset = (i/numberOfBins);
+        var value = despesasMin + (despesasMax - despesasMin) * offset;
+        console.log(value);
+        legend.append("stop")
+        .attr("offset", offset*100  + "%")
+        .attr("stop-color", redLinear(value))
+        .attr("stop-opacity", 1);
+      }
+
+    key.append("rect")
+      .attr("width", w)
+      .attr("height", h - 30)
+      .style("fill", "url(#gradient)");
+
+    var y = d3.scaleLinear().range([0, w-1]).domain([despesasMin, despesasMax]);
+    var yAxis = d3.axisBottom().scale(y).ticks(numberOfBins);
+
+    key.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(0,30)")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("axis title");
+    }
 };
