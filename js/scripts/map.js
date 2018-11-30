@@ -75,7 +75,7 @@ const switchName = (textValue) => {
 //===================================================
 //DRAW STUFF 
 
-const desenharMapa = (seletor, deputados, despesas) => {
+const desenharMapa = (seletor, deputados, despesas, states) => {
   //número de deputados =================
   let facts = crossfilter(deputados);
   let estadoDim = facts.dimension(d => {
@@ -98,6 +98,8 @@ const desenharMapa = (seletor, deputados, despesas) => {
     var sigla = JSON.parse(d.key).sigla;
     var valor = JSON.parse(d.key).valor;
 
+    if(valor < 0) valor = 0;
+
     d.key = sigla;
     d.value = valor;
   });
@@ -113,70 +115,58 @@ const desenharMapa = (seletor, deputados, despesas) => {
   var despesasMax = despesasExtent[1];
 
   //geografia do mapa ====================
-  let width = 960, height = 600;
+  let width = 960, height = 600, heightLegenda = height/10;
 
   let svg = d3.select(seletor).append("svg")
     .attr("width", width)
     .attr("height", height);
 
-  let promises = [d3.json("data/br-states.json")];
-  Promise.all(promises).then(ready);
+  var projection = d3.geoIdentity()
+      .reflectY(true)
+      .fitSize([width,height],states);
 
-  function ready([br]) {
-      var states = topojson.feature(br, br.objects.states);
+  let path = d3.geoPath().projection(projection);
 
-      var projection = d3.geoIdentity()
-          .reflectY(true)
-          .fitSize([width,height],states);
+  //desenho do mapa ====================
+  svg.append("g")
+    .attr("class", "states")
+  .selectAll("path")
+    .data(states.features)
+  .enter().append("path")
+    .attr("fill", function(d) { 
+      var regionName = d.properties.name;
+      var regionAbbrv = switchName(regionName);
+      var regionValue = estadoCalc(despesasGroup, regionAbbrv);
+      var finalColor = getMapColor(despesasMin, despesasMax, regionValue);
+      return finalColor;
+    })
+    .attr("d", path)
+    .on("mouseover", function(d){
+      d3.select(this)
+      .style("cursor", "pointer")
+      .attr("stroke-width", 5)
+      .attr("stroke","#FFF5B1");
+    })
+    .on("mouseout", function(d){
+      d3.select(this)
+      .style("cursor", "default")
+      .attr("stroke-width", 1)
+      .attr("stroke","#eee");
+    })
+    .append("svg:title")
+      .text(function(d) { 
+        var fullName = d.properties.name;
+        var abbrv = switchName(d.properties.name);
+        return fullName + ":\n" +
+        estadoCalc(estadoGroup, abbrv) + " deputados gastaram cerca de \n" + 
+        "R$ " + estadoCalc(despesasGroup, abbrv) + " no exercício da função"; 
+      });
 
-      let path = d3.geoPath().projection(projection);
-
-      //desenho do mapa
-      svg.append("g")
-        .attr("class", "states")
-      .selectAll("path")
-        .data(states.features)
-      .enter().append("path")
-        .attr("fill", function(d) { 
-          var regionName = d.properties.name;
-          var regionAbbrv = switchName(regionName);
-          var regionValue = estadoCalc(despesasGroup, regionAbbrv);
-          var finalColor = getMapColor(despesasMin, despesasMax, regionValue);
-          return finalColor;
-        })
-        .attr("d", path)
-      .on("mouseover", function(d){
-          d3.select(this)
-          .style("cursor", "pointer")
-          .attr("stroke-width", 5)
-          .attr("stroke","#FFF5B1");
-        })
-        .on("mouseout", function(d){
-          d3.select(this)
-          .style("cursor", "default")
-          .attr("stroke-width", 1)
-          .attr("stroke","#eee");
-        })
-        .append("svg:title")
-          .text(function(d) { 
-            var fullName = d.properties.name;
-            var abbrv = switchName(d.properties.name);
-            return fullName + ":\n" +
-            estadoCalc(estadoGroup, abbrv) + " deputados gastaram cerca de \n" + 
-            "R$ " + estadoCalc(despesasGroup, abbrv) + " no exercício da função"; 
-          });
-
-      legenda(10);
-  }
-
-  function legenda(numberOfBins){
-    var w = 960, h = 60;
-    var redLinear = d3.scaleSequential(d3.interpolateReds).domain([despesasMin, despesasMax]);
-
+    //desenho da legenda ====================
     var key = d3.select("#mapa-legenda")
       .append("svg")
-      .attr("width", w)
-      .attr("height", h);
+      .attr("width", width)
+      .attr("height", heightLegenda);
 
     var legend = key.append("defs")
       .append("svg:linearGradient")
@@ -187,23 +177,21 @@ const desenharMapa = (seletor, deputados, despesas) => {
       .attr("y2", "100%")
       .attr("spreadMethod", "pad");
 
-      for(i = 0; i < numberOfBins; i++){
-        var offset = (i/numberOfBins);
-        var value = despesasMin + (despesasMax - despesasMin) * offset;
-        console.log(value);
+      for(i = 0; i <= 10; i++){
+        var value = despesasMin + (despesasMax - despesasMin) * i/10;
         legend.append("stop")
-        .attr("offset", offset*100  + "%")
-        .attr("stop-color", redLinear(value))
+        .attr("offset", i*10  + "%")
+        .attr("stop-color", getMapColor(despesasMin, despesasMax, value))
         .attr("stop-opacity", 1);
       }
 
     key.append("rect")
-      .attr("width", w)
-      .attr("height", h - 30)
+      .attr("width", width)
+      .attr("height", heightLegenda - 30)
       .style("fill", "url(#gradient)");
 
-    var y = d3.scaleLinear().range([0, w-1]).domain([despesasMin, despesasMax]);
-    var yAxis = d3.axisBottom().scale(y).ticks(numberOfBins);
+    var y = d3.scaleLinear().range([0, width-1]).domain([despesasMin, despesasMax]);
+    var yAxis = d3.axisBottom().scale(y).ticks(10);
 
     key.append("g")
       .attr("class", "y axis")
@@ -215,5 +203,5 @@ const desenharMapa = (seletor, deputados, despesas) => {
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("axis title");
-    }
+
 };

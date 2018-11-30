@@ -24,9 +24,14 @@ $(document).ready(() => {
                       '#section-perfis .pagination',
                       despesas, 
                       deputados);
-            
+
             graficoDespesas('#grafico-despesas', despesas);
-            desenharMapa('#mapa', deputados, despesas);
+
+            carregarTopoJson().then(mapa => {
+                desenharMapa('#mapa', deputados, despesas, mapa);
+            }).catch(err => {
+                console.log(err);
+            })
         }).catch(err => {
             console.log(err);
         })

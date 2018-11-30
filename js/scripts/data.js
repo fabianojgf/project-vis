@@ -9,8 +9,20 @@ const despesasDeputado = (pagina=1,idDeputado) => {
 
 const carregarDespesas = (ano) => {
     return new Promise((resolve, reject) => {
+        
         d3.json(`data/CamaraFederal/Despesas/${ano}.json`).then(despesas => {
             resolve(despesas.DESPESA);
+        }).catch(err => {
+            reject(err);
+        })
+    });
+}
+
+const carregarTopoJson = () => {
+    return new Promise((resolve, reject) => {
+        
+        d3.json("data/br-states.json").then(br => {
+            resolve(topojson.feature(br, br.objects.states));
         }).catch(err => {
             reject(err);
         })
