@@ -29,6 +29,17 @@ const carregarTopoJson = () => {
     });
 }
 
+const carregarComparacao = () => {
+    return new Promise((resolve, reject) => {
+        
+        d3.tsv("data/comparacoes.tsv").then(comps => {
+            resolve(comps);
+        }).catch(err => {
+            reject(err);
+        })
+    });
+}
+
 // Requer os dados a partir da primeira página e segue
 // de página em página até carregar todos.
 // Retorna todos os dados disponíveis em JSON.

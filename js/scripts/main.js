@@ -35,6 +35,12 @@ $(document).ready(() => {
         }).catch(err => {
             console.log(err);
         })
+
+        carregarComparacao().then(comps => {
+           console.log(comps); 
+        }).catch(err => {
+            console.log(err);
+        })
     }).catch(err => {
         console.log(err);
     })
