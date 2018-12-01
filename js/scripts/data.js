@@ -40,6 +40,17 @@ const carregarComparacao = () => {
     });
 }
 
+const carregadorTodosDeputados = () => {
+    return new Promise((resolve, reject) => {
+        
+        d3.json("data/CamaraFederal/Deputados/deputados.json").then(allDeps => {
+            resolve(allDeps);
+        }).catch(err => {
+            reject(err);
+        })
+    });
+}
+
 // Requer os dados a partir da primeira página e segue
 // de página em página até carregar todos.
 // Retorna todos os dados disponíveis em JSON.

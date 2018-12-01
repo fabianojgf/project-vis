@@ -37,7 +37,7 @@ $(document).ready(() => {
         })
 
         carregarComparacao().then(comps => {
-           console.log(comps); 
+           desenharComps("#grafico-comparacoes" ,comps);
         }).catch(err => {
             console.log(err);
         })
