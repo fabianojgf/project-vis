@@ -119,6 +119,11 @@ const desenharMapa = (seletor, deputados, despesas, states) => {
       return finalColor;
     })
     .attr("d", path)
+    .on("click", (d) => {
+      filtrarPorEstado(switchName(d.properties.name), 
+                       deputados, 
+                       despesas);
+    })
     .on("mouseover", function(d){
       d3.select(this)
       .style("cursor", "pointer")
@@ -144,20 +149,20 @@ const desenharMapa = (seletor, deputados, despesas, states) => {
 
     //desenho da legenda ====================
     var key = d3.select("#mapa-legenda")
-      .append("svg")
-      .attr("width", width)
-      .attr("height", heightLegenda);
+                .append("svg")
+                .attr("width", width)
+                .attr("height", heightLegenda);
 
     var legend = key.append("defs")
-      .append("svg:linearGradient")
-      .attr("id", "gradient")
-      .attr("x1", "0%")
-      .attr("y1", "100%")
-      .attr("x2", "100%")
-      .attr("y2", "100%")
-      .attr("spreadMethod", "pad");
+                    .append("svg:linearGradient")
+                    .attr("id", "gradient")
+                    .attr("x1", "0%")
+                    .attr("y1", "100%")
+                    .attr("x2", "100%")
+                    .attr("y2", "100%")
+                    .attr("spreadMethod", "pad");
 
-      for(i = 0; i <= 10; i++){
+      for(i = 0; i <= 10; i++) {
         var value = despesasMin + (despesasMax - despesasMin) * i/10;
         legend.append("stop")
         .attr("offset", i*10  + "%")
@@ -166,22 +171,21 @@ const desenharMapa = (seletor, deputados, despesas, states) => {
       }
 
     key.append("rect")
-      .attr("width", width)
-      .attr("height", heightLegenda - 30)
-      .style("fill", "url(#gradient)");
+       .attr("width", width)
+       .attr("height", heightLegenda - 30)
+       .style("fill", "url(#gradient)");
 
     var y = d3.scaleLinear().range([0, width-1]).domain([despesasMin, despesasMax]);
     var yAxis = d3.axisBottom().scale(y).ticks(10);
 
     key.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(0,30)")
-      .call(yAxis)
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("axis title");
-
+       .attr("class", "y axis")
+       .attr("transform", "translate(0,30)")
+       .call(yAxis)
+       .append("text")
+       .attr("transform", "rotate(-90)")
+       .attr("y", 0)
+       .attr("dy", ".71em")
+       .style("text-anchor", "end")
+       .text("axis title");
 };

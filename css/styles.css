@@ -27,15 +27,20 @@ html {
 #chamada > div {
     width: 100%;
     height: 520px;
-    background-color: rgba(0, 100, 100, 0.3);
+    background-color: rgba(100, 100, 100, 0.3);
     box-shadow: 0 -30px 10px -10px white inset; 
 }
 /* ========================================================== 
  * QUANTO CUSTA UM DEPUTADO?
  * ========================================================== */
- #section-comps .collection .collection-item.avatar {
+#section-comps .collection .collection-item.avatar {
     padding-left: 28px;
- }
+}
+
+#section-comps .collection .collection-item i.secondary-content{
+    color: #ff8a65;
+}
+
 
 
 /* ========================================================== 
@@ -46,13 +51,7 @@ html {
     position: relative;
 } 
 
-#section-area {
-    min-height: 640px;
-}
 
-#section-perfis {
-    min-height: 640px;
-}
 
 #section-area .row {
     margin-bottom: 0;

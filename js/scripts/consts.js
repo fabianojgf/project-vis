@@ -21,6 +21,9 @@ const DespesasDict = {
 
 const seletores = {
     'mapaDeputados': '#mapa',
+    'scatterPartidos': {
+        'main': '#scatter-partidos'
+    },
     'graficoDespesas': {
         'main': '#grafico-despesas',
         'legenda': '#grafico-despesas-legenda'

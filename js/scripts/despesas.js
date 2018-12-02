@@ -15,10 +15,10 @@ const graficoDespesas = (despesas) => {
     let domain_x = top.map(d => d.key);
     let despesasX = d3.scaleOrdinal().domain(domain_x);
     let topTen = getTops(descGroup, 10);
-    let greens = d3.schemeGreens[9];
-    let colorScale = color = d3.scaleLinear().domain([1,10])
-    .interpolate(d3.interpolateHcl)
-    .range([d3.rgb("#ff8a65 "), d3.rgb('#fbe9e7')]);
+    let colorScale = d3.scaleLinear()
+                       .domain([1,10])
+                       .interpolate(d3.interpolateHcl)
+                       .range([d3.rgb("#ff8a65 "), d3.rgb('#ff8a65')]);
     
     barchart.width(null)
             .margins({top: 50, right: 10, bottom: 25, left: 80})
@@ -31,8 +31,6 @@ const graficoDespesas = (despesas) => {
             .transitionDuration(100)
             .colors(colorScale)
             .colorAccessor(d => {
-                console.log(d);
-                console.log(domain_x);
                 return domain_x.indexOf(d.key);
             })
             .brushOn(false)

@@ -35,16 +35,11 @@
 
         <section id="section-comps" class="section">
             <div class="container">
-                <div class="row">
-                    <div class="col s12">
-                        <h3>Quanto custa um deputado?</h3>
-                    </div>
-                </div>
                 <div class="row valign-wrapper">
                     <div class="col s8">
-                            <div id="grafico-comparacoes"></div>
-                            <div id="grafico-comparacoes-legenda"></div>
-                        </div>
+                        <div id="grafico-comparacoes"></div>
+                        <div id="grafico-comparacoes-legenda"></div>
+                    </div>
                     <div class="col s4">
                         <ul class="collection">
                             <li class="collection-item avatar">
@@ -68,7 +63,6 @@
                 </div>
             </div>
         </section>
-
         <section class="section">
             <div class="container">
                 <div class="row">
@@ -126,106 +120,31 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-
-        <section id="section-despesas-deputados" class="section">
-            <div class="container">
-                <div class="row valign-wrapper">
-                  
-                </div>
-            </div>
-        </section>
-
-        <!-- <section id="section-perfis" class="section">
-            <div class="container">
                 <div class="row">
-                    <div class="col s12">
-                        <h3>Quem são os Deputados?</h3>
-                        <h5>Confira aqui quem são os deputados em exercício</h5>
+                    <div class="col s3">
+                        <h5>Comparando Partidos</h5>
+                        <h6>O gráfico mostra a despesa total dos deputados do partido dividida
+                            pela quantidade de deputados vs a quantidade
+                            de deputados do partido
+                        </h6>
                     </div>
-                </div>
-                <div class="row valign-wrapper">
-                    <div class="col s7">
-                        <div id="quadro-deputados"></div>
-                        <ul class="pagination center-align"></ul>
-                    </div>
-
-                    <div class="col s4 offset-s1">
-                        <div id="quadro-deputados-showcase" class="card">
-                            <div class="card-content">
-                                <div class="row valign-wrapper">
-                                    <div class="col s7">
-                                        <h4 class="titulo"></h4>
-                                        <h5 class="subtitulo"></h5>
-                                    </div>
-                                    <div class="col s5">
-                                        <div class="row">
-                                            <div class="col s12">
-                                                <img class="foto" src=""/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="scatter-partidos" class="col s9"></div>
                 </div>
             </div>
         </section>
-
-        <section id="section-partidos" class="section">
-            
-        </section>
-
-
-        <section id="section-mapa" class="section">
-            <h3>Esse dropdown é na section do mapa mesmo?</h3>
-            <a class='dropdown-trigger btn' data-target='partidos-dropdown'>Filtrar por partido</a>
-
-            <ul id='partidos-dropdown' class='dropdown-content'></ul>
+        <!-- <section class="section">
             <div class="container">
-                <div class="row">
-                    <div class="col s12">
-                        <h3>Despesas por Estado</h3>
-                        <h5>Confira aqui os Estados onde há as maiores despesas</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div id="mapa"></div>
-                        <div id="mapa-legenda"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="section-area" class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col s12">
-                        <h3>Despesas por categoria</h3>
-                        <h5>Confira aqui as 10 atividades que geram mais gastos com os parlamentares</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div id="grafico-despesas"></div>
-                        <div id="grafico-despesas-legenda"></div>
-                    </div>
-                </div>
+                
             </div>
         </section> -->
-    </main>
-    
-    <footer class="page-footer teal darken-2">
+    <footer class="page-footer grey darken-3">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">Despesas da Câmera Legislativa</h5>
-                    <p class="grey-text text-lighten-4">Feito por Arthur Bastos, Fabiano Gadelha e Lucas Mapurunga para a cadeira
-                        de Visualização de Dados do Mestrado em Ciências da Computação da Universidade Federal do Ceará
+                    <p class="grey-text text-lighten-4">Feito por <a class="deep-orange-text text-lighten-2" href="http://github.com/arthursb">Arthur Bastos</a>, <a class="deep-orange-text text-lighten-2" href="http://github.com/fabianojgf">Fabiano Gadelha</a>
+                        e <a class="deep-orange-text text-lighten-2" href="http://github.com/tutch">Lucas Mapurunga</a> para a cadeira
+                        de Visualização Científica do <a class="deep-orange-text text-lighten-2" href="http://www.mdcc.ufc.br/">Mestrado em Ciências da Computação</a> da Universidade Federal do Ceará
                     </p>
                 </div>
             </div>
@@ -240,7 +159,8 @@
     <script src="js/scripts/consts.js"></script>
     <script src="js/scripts/util.js"></script>
     <script src="js/scripts/data.js"></script>
-    <script src="js/scripts/graphs.js"></script>
+    <script src="js/scripts/despesas.js"></script>
+    <script src="js/scripts/partidos_spread.js"></script>
     <script src="js/scripts/deputy_profiles.js"></script>
     <script src="js/scripts/main.js"></script>
     <script src="js/scripts/map.js"></script>

@@ -73,14 +73,30 @@ const filtrarPorDeputado = (dadosDeputado, despesasDeputado) => {
     deputadoSelecionado = dadosDeputado;
 };
 
-const filtrarPorPartido = (partido, despesasPartido) => {
+const filtrarPorPartido = (partido, deputadosPart, despesasPart) => {
     $(seletores.graficoDespesas.main).empty();
     $(seletores.graficoDespesas.legenda).empty();
-    graficoDespesas(despesasPartido);
+    graficoDespesas(despesasPart);
     deputadoSelecionado = {id:partido, 
-                           siglaPartido:partido, 
+                           siglaPartido: 'Deputados', 
                            nome:`Deputados ${partido}`,
-                           siglaUf:'Brasil',
+                           siglaUf: deputadosPart.length,
                            ext:'png'};
     showcaseDeputado(deputadoSelecionado);
+};
+
+const filtrarPorEstado = (sigla, deputado, despesas) => {
+    $(seletores.graficoDespesas.main).empty();
+    $(seletores.graficoDespesas.legenda).empty();
+
+    let deputadosUf = deputado.filter(d => d.siglaUf == sigla);
+    let despesasUf = despesas.filter(d => d.sgUF == sigla);
+
+    deputadoSelecionado = {id:0, 
+        siglaPartido: 'Deputados', 
+        nome:`Deputados ${sigla}`,
+        siglaUf:deputadosUf.length,
+        ext:'jpg'};
+    showcaseDeputado(deputadoSelecionado);
+    graficoDespesas(despesasUf);
 };
