@@ -29,32 +29,116 @@
                             como dar um perfil dos deputados.                        </p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col s12 l2 center-align">
-                            <a href="#section-perfis" class="btn-large deep-orange lighten-2">Perfis(ajeita)</a>
-                        </div>
-                        <div class="col s12 l2 center-align">
-                            <a href="#section-partidos" class="btn-large deep-orange lighten-2">Partidos(pfvr)</a>
-                        </div>
-                        <div class="col s12 l2 center-align">
-                            <a href="#section-comps" class="btn-large deep-orange lighten-2">Custo(:D)</a>
-                        </div>
-                        <div class="row">
-                            <div class="col s12 l2 offset-l3 center-align">
-                                <a href="#section-mapa" class="btn-large deep-orange lighten-2">Mapa</a>
-                            </div>
-                            <div class="col s12 l2 center-align">
-                                <a href="#section-area" class="btn-large deep-orange lighten-2">Por Área</a>
-                            </div>
-                            <div class="col s12 l2 center-align">
-                                <a class="btn-large deep-orange lighten-2">Gráfico 1</a>
-                            </div> 
-                        </div>
-                    </div>   
                 </div>
             </div>
         </section>
-        <section id="section-perfis" class="section">
+
+        <section id="section-comps" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <h3>Quanto custa um deputado?</h3>
+                    </div>
+                </div>
+                <div class="row valign-wrapper">
+                    <div class="col s8">
+                            <div id="grafico-comparacoes"></div>
+                            <div id="grafico-comparacoes-legenda"></div>
+                        </div>
+                    <div class="col s4">
+                        <ul class="collection">
+                            <li class="collection-item avatar">
+                                <span class="title"><b>Salário</b></span>
+                                <p>Cerca de R$ 33.763,00</p>
+                                <i class="fas fa-money-bill secondary-content"></i>                            </li>
+                            <li class="collection-item avatar">
+                                <span class="title"><b>Cota por Atividade Parlamentar</b></span>
+                                <p>R$ 39.000,00 a R$ 44.000,00, dependendo da unidade federativa.</p>
+                                <i class="fas fa-user-tie secondary-content"></i>                            </li>
+                            <li class="collection-item avatar">
+                                <span class="title"><b>Verba de Contratação Pessoal</b></span>
+                                <p>R$ 106.866,00</p>
+                                <i class="fas fa-users secondary-content"></i>                            </li>
+                            <li class="collection-item avatar">
+                                <span class="title"><b>Auxílio Moradia</b></span>
+                                <p>R$ 4.253,00</p>
+                                <i class="fas fa-home secondary-content"></i>                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div id="" class="col s3">
+                        <div class="row">
+                            <div class="col s12">
+                                <div id="collection-partidos" class="collection">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="section-perfis" class="col s12">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div id="quadro-deputados-showcase" class="card">
+                                            <div class="card-content">
+                                                <div class="row valign-wrapper">
+                                                    <div class="col s7">
+                                                        <h5 class="titulo"></h5>
+                                                        <h6 class="subtitulo"></h6>
+                                                    </div>
+                                                    <div class="col s5">
+                                                        <div class="row">
+                                                            <div class="col s12">
+                                                                <img class="foto" src=""/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div id="quadro-deputados"></div>
+                                        <ul class="pagination center-align"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s9">
+                        <div class="row">
+                            <div class="col s12">
+                                <div id="mapa"></div>
+                                <div id="mapa-legenda"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="section-area" class="col s12">
+                                <div id="grafico-despesas"></div>
+                                <div id="grafico-despesas-legenda"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="section-despesas-deputados" class="section">
+            <div class="container">
+                <div class="row valign-wrapper">
+                  
+                </div>
+            </div>
+        </section>
+
+        <!-- <section id="section-perfis" class="section">
             <div class="container">
                 <div class="row">
                     <div class="col s12">
@@ -94,36 +178,12 @@
         <section id="section-partidos" class="section">
             
         </section>
-        <section id="section-comps" class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col s12">
-                        <h3>Quanto custa um deputado?</h3>
-                        <h7>
-                        Segundo dados de 2018: <br>
-                        - O salário de um deputado federal é de cerca de R$ 33763. <br> 
-                        - Recebem também uma cota para o exercício da atividade parlamentar, 
-                        que pode variar entre R$ 39000 a 44000 dependendo da unidade federativa. <br>
-                        - Dispõem de uma verba de contratação pessoal de cerca de R$ 106866. <br>
-                        - Possuem auxílio-moradia no valor de R$ 4253. <br><br>
-                        Veja o que poderia ser adquirido por esses valores.  </h7>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div id="grafico-comparacoes"></div>
-                        <div id="grafico-comparacoes-legenda"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <section id="section-mapa" class="section">
             <h3>Esse dropdown é na section do mapa mesmo?</h3>
-            <!-- Dropdown Trigger -->
             <a class='dropdown-trigger btn' data-target='partidos-dropdown'>Filtrar por partido</a>
 
-            <!-- Dropdown Structure -->
             <ul id='partidos-dropdown' class='dropdown-content'></ul>
             <div class="container">
                 <div class="row">
@@ -156,8 +216,23 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
     </main>
+    
+    <footer class="page-footer teal darken-2">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Despesas da Câmera Legislativa</h5>
+                    <p class="grey-text text-lighten-4">Feito por Arthur Bastos, Fabiano Gadelha e Lucas Mapurunga para a cadeira
+                        de Visualização de Dados do Mestrado em Ciências da Computação da Universidade Federal do Ceará
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+        </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="materialize/js/materialize.min.js"></script>

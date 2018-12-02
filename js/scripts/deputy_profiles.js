@@ -1,6 +1,8 @@
+let deputadoSelecionado = {};
+
 const buildProfiles = (seletor, paginacao, despesas, deputados) => {
     console.log(deputados);
-    let linhas = 5;
+    let linhas = 6;
     let deputados_por_linha = 10;
     let qtd_pagina = linhas * deputados_por_linha;
     let quadros = Math.ceil(deputados.length / qtd_pagina);
@@ -33,6 +35,10 @@ const buildProfiles = (seletor, paginacao, despesas, deputados) => {
             }
         }
 
+        $(seletor).mouseout(() => {
+            showcaseDeputado(deputadoSelecionado);
+        });
+
         $(paginacao).append(`<li id="pagination-${i+1}" class="pagination-btn waves-effect"><a href="#!">${i+1}</a></li>`);
 
         $(`#pagination-${i+1}`).click(() => {
@@ -43,21 +49,38 @@ const buildProfiles = (seletor, paginacao, despesas, deputados) => {
         });
     }
 
+    deputadoSelecionado = {id:0, siglaPartido:'Partido', nome:'Todos', siglaUf:'Estado'};
+    showcaseDeputado(deputadoSelecionado);
     $(`${seletor} .quadro.0`).css('display', 'block');
     $(`${paginacao} #pagination-1`).addClass('active');
 };
 
 const showcaseDeputado = (deputado) => {
     let showcase = '#quadro-deputados-showcase';
+    let ext = deputado.ext ? deputado.ext : 'jpg';
+
     $(`${showcase}`).css('display', 'block');
-    $(`${showcase} .titulo`).text(capitalizePhrase(deputado.nome.toLowerCase()));
+    $(`${showcase} .titulo`).text(capitalizeDeputado(deputado.nome));
     $(`${showcase} .subtitulo`).text(`${deputado.siglaPartido} - ${deputado.siglaUf}`);
-    $(`${showcase} .foto`).attr('src', `../../images/fotos_deputados/${deputado.id}.jpg`);
+    $(`${showcase} .foto`).attr('src', `../../images/fotos_deputados/${deputado.id}.${ext}`);
 };
 
+// FILTROS
 const filtrarPorDeputado = (dadosDeputado, despesasDeputado) => {
-    console.log(despesasDeputado);
     $(seletores.graficoDespesas.main).empty();
     $(seletores.graficoDespesas.legenda).empty();
     graficoDespesas(despesasDeputado);
+    deputadoSelecionado = dadosDeputado;
+};
+
+const filtrarPorPartido = (partido, despesasPartido) => {
+    $(seletores.graficoDespesas.main).empty();
+    $(seletores.graficoDespesas.legenda).empty();
+    graficoDespesas(despesasPartido);
+    deputadoSelecionado = {id:partido, 
+                           siglaPartido:partido, 
+                           nome:`Deputados ${partido}`,
+                           siglaUf:'Brasil',
+                           ext:'png'};
+    showcaseDeputado(deputadoSelecionado);
 };

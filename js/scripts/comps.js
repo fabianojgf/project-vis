@@ -14,8 +14,8 @@ const desenharComps = (seletor, comparacoes) => {
 
     let barchart = dc.barChart(seletor);
     barchart.ordering(function (d) { return -d.value ;})
-            .width(600)
-            .height(600)
+            .width(null)
+            .height(null)
             .margins({top: 50, right: 50, bottom: 25, left: 60})
             .y(d3.scaleLinear().domain([0,valoresMax]))
             .x(d3.scaleBand())

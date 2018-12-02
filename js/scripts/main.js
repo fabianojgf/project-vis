@@ -1,34 +1,41 @@
-const dropdownPartidos = (trigger, container, partidos) => {
-    let partido_dropdown = $(container)
-    
-    partido_dropdown.append(`<li><a href="#!"><b>SELECIONAR TODOS</b></a></li>`)
+const collectionPartidos = (container, partidos, despesas) => {
+    console.log(partidos);
+    console.log(despesas);
 
     partidos.forEach(p => {
-        partido_dropdown.append(`<li><a href="#!"><img src="./../../images/partidos/${p}.png" alt="${p}"/><p>${p}</p></a></li>`)
-    });
-    
-    $(trigger).dropdown();   
+        // partido_dropdown.append(`<a class="collection-item" href="#!"><img src="./../../images/partidos/${p}.png" alt="${p}"/><p>${p}</p></a>`)
+        $(container).append(`<a class="collection-item" id="${p}" href="#!"><p>${p}</p></a>`)
+        $(`${container} #${p}`).click(() => {
+            console.log('!');
+            $(`${container} .collection-item`).removeClass('active');
+            $(`${container} #${p}`).addClass('active');
+            filtrarPorPartido(p, despesas.filter(d => d.sgPartido == p));
+        });
+    });   
 };
-
 
 // Ponto de entrada
 // Página carregada
 $(document).ready(() => {
+    // $('.tabs').tabs();
+
     // Carrega os dados
     carregarDeputados(1, []).then(deputados => {
         let partidos = extrairPartidos(deputados);
-        dropdownPartidos('.dropdown-trigger', '#partidos-dropdown', partidos);
-        
-        carregarDespesas(2018).then(despesas => {
-            buildProfiles('#quadro-deputados', 
-                      '#section-perfis .pagination',
-                      despesas, 
-                      deputados);
 
-            graficoDespesas('#grafico-despesas', despesas);
+        carregarDespesas(2018).then(despesas => {
+            buildProfiles(seletores.quadroDeputados.main, 
+                          seletores.quadroDeputados.pagination, 
+                          despesas,
+                          deputados);
+
+            graficoDespesas(despesas);
+
+            collectionPartidos(seletores.collectionPartidos.main,
+                                partidos, despesas);
 
             carregarTopoJson().then(mapa => {
-                desenharMapa('#mapa', deputados, despesas, mapa);
+                desenharMapa(seletores.mapaDeputados, deputados, despesas, mapa);
             }).catch(err => {
                 console.log(err);
             })

@@ -29,8 +29,7 @@ const seletores = {
         'main': '#quadro-deputados',
         'pagination': '#section-perfis .pagination'
     },
-    'dropdownPartidos': {
-        'main': '#partidos-dropdown',
-        'trigger':'.dropdown-trigger'        
+    'collectionPartidos': {
+        'main': '#collection-partidos',
     }
 };

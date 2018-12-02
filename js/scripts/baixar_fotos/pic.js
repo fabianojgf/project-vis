@@ -1,4 +1,4 @@
-var request = require("request");
+﻿var request = require("request");
 var fs = require('fs');
 
 const datasetDeputados = (pagina=1) => {
@@ -33,7 +33,7 @@ const download = require('image-downloader')
 // Download to a directory and save with an another filename
 options = {
     url: 'http://someurl.com/image2.jpg',
-    dest: '/path/to/dest/photo.jpg'        // Save to /path/to/dest/photo.jpg
+    dest: '/path/to/dest/photo.jpg'        // Save to /path/to/dest/photo.jpg,timeout: 10000
   }
    
  
@@ -41,7 +41,7 @@ carregarDeputados(1, []).then(dep => {
     
     let batches = Math.round(dep.length/100);
 
-    let current_batch = 6;
+    let current_batch = 5;
 
     dep = dep.slice(100*(current_batch-1), 100*current_batch);
 

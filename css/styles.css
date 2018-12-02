@@ -8,7 +8,7 @@ html {
     background-image: url("../images/camara-legislativa.jpg");
     background-position: center;
     position: relative;
-    height: 640px;
+    height: 520px;
     padding-top: 0;
     box-shadow: 0 -30px 10px -10px white inset; 
 }
@@ -26,13 +26,45 @@ html {
 
 #chamada > div {
     width: 100%;
-    height: 640px;
+    height: 520px;
     background-color: rgba(0, 100, 100, 0.3);
     box-shadow: 0 -30px 10px -10px white inset; 
 }
 /* ========================================================== 
+ * QUANTO CUSTA UM DEPUTADO?
+ * ========================================================== */
+ #section-comps .collection .collection-item.avatar {
+    padding-left: 28px;
+ }
+
+
+/* ========================================================== 
+ * DESPESAS DEPUTADO
+ * ========================================================== */
+#section-despesas-deputados {
+    min-height: 720px;
+    position: relative;
+} 
+
+#section-area {
+    min-height: 640px;
+}
+
+#section-perfis {
+    min-height: 640px;
+}
+
+#section-area .row {
+    margin-bottom: 0;
+}  
+
+/* ========================================================== 
  * QUADRO DEPUTADOS
  * ========================================================== */
+ 
+ #section-perfis .pagination li.active {
+     background-color: #ff8a65;
+ }
 
 #quadro-deputados .foto-deputado {
     width: 10%;
@@ -51,6 +83,8 @@ html {
 
 #quadro-deputados-showcase {
     display: none;
+    height: 176px;
+    width: 100%;
 }
 
 #quadro-deputados-showcase p {
@@ -80,36 +114,52 @@ html {
 }
 
 /* ========================================================== 
- * DROPDOWN PARTIDOS
+ * COLLECTION PARTIDOS
  * ========================================================== */
-#partidos-dropdown img {
+#collection-partidos {
+    height: 640px;
+    min-height: 640px;
+    overflow-y: scroll;
+}
+
+#collection-partidos .collection-item img {
     width: 20px;
 }
 
-#partidos-dropdown p {
+#collection-partidos p {
     display: inline-block;
     margin-left: 10px;
+}
+
+#collection-partidos .collection-item {
+    padding: 0;
+    color: #ff8a65;
+}
+
+#collection-partidos .collection-item.active {
+    color: white;
+    background-color: #ff8a65
 }
 
 /* ========================================================== 
  * GRÁFICOS DO DC
  * ========================================================== */
-#grafico-despesas {
+.dc-chart {
     width: 100%;
-    min-height: 600px;
+    min-height: 520px;
 }
 
 #grafico-despesas-legenda {
     display: none;
     position: absolute;
     right: 0;
-    padding: 20px;
-    border: 1px solid black;
-    background-color: rgba(100, 100, 100, 0.2);
+    padding: 16px;
+    background-color: rgba(150, 150, 150, 0.1);
+    line-height: 0.85;
 }
 
 #grafico-despesas-legenda i {
-    font-size: 16px;
+    font-size: 12px;
     width: 20px;
     height: 20px;
 }
@@ -123,7 +173,7 @@ html {
 
 #grafico-despesas-legenda p {
     display:inline;
-    margin-left: 14px;
+    margin-left: 12px;
     font-size: 12px;
 }
 
@@ -134,4 +184,8 @@ svg .x .tick text{
     font-family: 'Font Awesome 5 Free';
 }
 
-/* ========================================================== */
+/* ========================================================== 
+ * MATERIALIZE
+ * ========================================================== */
+
+ 
