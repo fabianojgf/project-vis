@@ -85,30 +85,8 @@ const desenharMapa = (seletor, deputados, despesas, states) => {
 
   //despesas por Estado =================
   let facts2 = crossfilter(despesas);
-  let despesasDim = facts2.dimension(d => {
-        var sgUF = d.sgUF;
-        var vlrDocumento = d.vlrDocumento;
-        var numeroValor = parseFloat(vlrDocumento.replace(",", "."));
-
-        return JSON.stringify ({sigla: sgUF, valor: numeroValor});
-  });
-  let despesasGroup = despesasDim.group();
-
-  despesasGroup.all().forEach(d => {
-    var sigla = JSON.parse(d.key).sigla;
-    var valor = JSON.parse(d.key).valor;
-
-    if(valor < 0) valor = 0;
-
-    d.key = sigla;
-    d.value = valor;
-  });
-
-  facts2 = crossfilter(despesasGroup.all());
-  despesasDim = facts2.dimension(d => {
-        return d.key;
-  });
-  despesasGroup = despesasDim.group();
+  let despesasDim = facts2.dimension(d => {return d.sgUF;});
+  let despesasGroup = despesasDim.group().reduceSum(d => {return parseFloat(d.vlrDocumento)});
 
   var despesasExtent = d3.extent(despesasGroup.all(), d => {return d.value});
   var despesasMin = despesasExtent[0];
@@ -159,7 +137,9 @@ const desenharMapa = (seletor, deputados, despesas, states) => {
         var abbrv = switchName(d.properties.name);
         return fullName + ":\n" +
         estadoCalc(estadoGroup, abbrv) + " deputados gastaram cerca de \n" + 
-        "R$ " + estadoCalc(despesasGroup, abbrv) + " no exercício da função"; 
+        "R$ " + estadoCalc(despesasGroup, abbrv) + " no exercício da função. \n" +
+        "Proporcionalmente, temos que: \n" + 
+        "Um deputado gastou R$ " + (Math.round(estadoCalc(despesasGroup, abbrv)/estadoCalc(estadoGroup, abbrv))) + "."; 
       });
 
     //desenho da legenda ====================

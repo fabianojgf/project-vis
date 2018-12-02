@@ -184,6 +184,10 @@ svg .x .tick text{
     font-family: 'Font Awesome 5 Free';
 }
 
+.dc-chart g.row text {
+  fill: black;
+}
+
 /* ========================================================== 
  * MATERIALIZE
  * ========================================================== */
