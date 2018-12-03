@@ -15,8 +15,16 @@ const collectionPartidos = (container, deputados, partidos, despesas) => {
 // Ponto de entrada
 // Página carregada
 $(document).ready(() => {
+    carregarComparacao().then(comps => {
+        desenharComps("#grafico-comparacoes", comps);
+    }).catch(err => {
+        console.log(err);
+    })
+
     // Carrega os dados
-    carregarDeputados(1, []).then(deputados => {
+    //carregadorTodosDeputados().then(deputados
+    carregadorTodosDeputados().then(deputados => {
+        
         let partidos = extrairPartidos(deputados);
 
         carregarDespesas(2018).then(despesas => {
@@ -34,12 +42,6 @@ $(document).ready(() => {
 
             carregarTopoJson().then(mapa => {
                 desenharMapa(seletores.mapaDeputados, deputados, despesas, mapa);
-            }).catch(err => {
-                console.log(err);
-            })
-
-            carregarComparacao().then(comps => {
-                desenharComps("#grafico-comparacoes", comps);
             }).catch(err => {
                 console.log(err);
             })

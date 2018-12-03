@@ -8,10 +8,19 @@ const despesasDeputado = (pagina=1,idDeputado) => {
 
 
 const carregarDespesas = (ano) => {
+    /*
     return new Promise((resolve, reject) => {
         
         d3.json(`data/CamaraFederal/Despesas/${ano}.json`).then(despesas => {
             resolve(despesas.DESPESA);
+        }).catch(err => {
+            reject(err);
+        })
+    });*/
+
+    return new Promise((resolve, reject) => {
+        d3.dsv(';',`data/CamaraFederal/Despesas/${ano}.csv`).then(despesas => {
+            resolve(despesas);
         }).catch(err => {
             reject(err);
         })
@@ -44,7 +53,7 @@ const carregadorTodosDeputados = () => {
     return new Promise((resolve, reject) => {
         
         d3.json("data/CamaraFederal/Deputados/deputados.json").then(allDeps => {
-            resolve(allDeps);
+            resolve(allDeps.dados);
         }).catch(err => {
             reject(err);
         })

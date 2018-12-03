@@ -76,6 +76,8 @@ const switchName = (textValue) => {
 //DRAW STUFF 
 
 const desenharMapa = (seletor, deputados, despesas, states) => {
+console.log(despesas);
+
   //número de deputados =================
   let facts = crossfilter(deputados);
   let estadoDim = facts.dimension(d => {
