@@ -78,6 +78,13 @@ const switchName = (textValue) => {
 const desenharMapa = (seletor, deputados, despesas, states) => {
 console.log(despesas);
 
+despesas.forEach(d =>{
+    var valor = parseFloat(d.vlrDocumento);
+    if(isNaN(valor))
+      d.vlrDocumento = 0;
+  }
+  );
+
   //número de deputados =================
   let facts = crossfilter(deputados);
   let estadoDim = facts.dimension(d => {
@@ -88,6 +95,10 @@ console.log(despesas);
   //despesas por Estado =================
   let facts2 = crossfilter(despesas);
   let despesasDim = facts2.dimension(d => {return d.sgUF;});
+
+  
+
+
   let despesasGroup = despesasDim.group().reduceSum(d => {return parseFloat(d.vlrDocumento)});
 
   var despesasExtent = d3.extent(despesasGroup.all(), d => {return d.value});
