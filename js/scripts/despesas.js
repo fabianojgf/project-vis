@@ -35,6 +35,9 @@ const graficoDespesas = (despesas) => {
             })
             .brushOn(false)
             .elasticY(true)
+    
+    barchart.filter = function() {};
+
 
     barchart.xAxis().tickFormat(d => { return DespesasDict[d.toUpperCase()].u; });
     barchart.yAxisLabel('Despesa Total (R$)', 40)

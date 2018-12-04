@@ -26,6 +26,8 @@ const desenharComps = (seletor, comparacoes) => {
             .dimension(nomeDim)
             .group(nomeGroup)
             .render();
+    
+    rowChart.filter = function() {};
 
     d3.select(seletor).selectAll('.row._1 rect').attr('fill', '#ff8a65');
     d3.select(seletor).selectAll('.row._2 rect').attr('fill', '#ff8a65');

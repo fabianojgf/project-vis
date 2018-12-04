@@ -1,6 +1,5 @@
 const createScale = (dataset, field, minmax, inverted) => {
     let range = inverted ? [minmax[1], minmax[0]] : [minmax[0], minmax[1]];
-    console.log(range);
 
     return d3.scaleLinear()
             .domain([minmax[0], d3.max(dataset, (d) => { 
@@ -11,15 +10,12 @@ const createScale = (dataset, field, minmax, inverted) => {
 }
 
 const scatterProporcional = (seletor, deputados, despesas, partidos) => {
-    console.log(deputados);
-    console.log(despesas)
-    
     let facts_deputados = crossfilter(deputados);
-
+    
     let partidosDim = facts_deputados.dimension(d => {
         return d.siglaPartido;
     });
-
+    
     let group_partidos = partidosDim.group();
 
     despesas.forEach(d => {
@@ -35,8 +31,8 @@ const scatterProporcional = (seletor, deputados, despesas, partidos) => {
 
     let facts_despesas = crossfilter(despesas);
 
-    let despesasDim = facts_despesas.dimension(d => {
-        return d.sgPartido;
+    let despesasDim = facts_despesas.dimension(d => {        
+        return d.sgPartido
     });
 
     let despesas_group = despesasDim.group().reduceSum(d => {
@@ -49,7 +45,19 @@ const scatterProporcional = (seletor, deputados, despesas, partidos) => {
         dp.n_deputados = group_partidos.all().filter(p => p.key == dp.key)[0].value;
     });    
 
-    console.log(despesasProporcional);
+    // Essa re-soma é feita para prevenir-se contra erros nos dados
+    // Às vezes as atualizações dos dados da câmara geram uns erros inesperados...
+    despesasProporcional = despesasProporcional.reduce((acc,v) => {
+        let index = acc.findIndex(d => d.key == v.key);
+
+        if(index >= 0) {
+            acc[index] = {key:v.key, value:acc[index].value + v.value, n_deputados: v.n_deputados};
+        } else {
+            acc.push({key:v.key, value:v.value, n_deputados: v.n_deputados});
+        }
+
+        return acc;
+    }, []);
 
     let margin = {top: 50, right: 100, bottom: 50, left: 50};
     let width = 1000 - margin.left - margin.right;
@@ -83,9 +91,29 @@ const scatterProporcional = (seletor, deputados, despesas, partidos) => {
                 .attr('cy', (d) => {
                     return yScale(d['n_deputados']);
                 })
-                .attr('r', 5)
-                .attr('fill','#ff8a65');
+                .attr('r', 6)
+                .attr('fill','#ff8a65')
+                .attr('cursor', 'pointer');
 
+    svg.selectAll('circle')
+       .on('click', (d) => {
+            let p = d.key;
+            filtrarPorPartido(p, 
+                deputados.filter(d => d.siglaPartido == p), 
+                despesas.filter(d => d.sgPartido == p));
+       });
+
+    svg.selectAll('circle')
+       .on('mouseover', function(d) {
+            d3.select(this).attr('fill', '#ffccbc')
+                           .attr('r', 12);
+       })
+       .on("mouseout", function(d) {
+            d3.select(this).attr('fill', '#ff8a65')
+                           .attr('r', 6);
+        });
+
+        
     const addLabels = (x_f, y_f, l_f) => {
         svg.selectAll('text')
             .data(despesasProporcional)

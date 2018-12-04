@@ -6,9 +6,9 @@ const getMapColor = (minValue, maxValue, currentValue) => {
 };
 
 const estadoCalc = (group, sigla) => { 
-    return group.all().filter(function(item) { 
-      return item.key === sigla; 
-    })[0].value
+  return group.all().filter(function(item) { 
+    return item.key === sigla; 
+  })[0].value
 };
 
 const switchName = (textValue) => {
@@ -79,11 +79,11 @@ const desenharMapa = (seletor, deputados, despesas, states) => {
 console.log(despesas);
 
 despesas.forEach(d =>{
-    var valor = parseFloat(d.vlrDocumento);
+    var valor = parseFloat(d.vlrLiquido);
     if(isNaN(valor))
-      d.vlrDocumento = 0;
-  }
-  );
+      d.vlrLiquido = 0;
+    }
+);
 
   //número de deputados =================
   let facts = crossfilter(deputados);
@@ -95,11 +95,7 @@ despesas.forEach(d =>{
   //despesas por Estado =================
   let facts2 = crossfilter(despesas);
   let despesasDim = facts2.dimension(d => {return d.sgUF;});
-
-  
-
-
-  let despesasGroup = despesasDim.group().reduceSum(d => {return parseFloat(d.vlrDocumento)});
+  let despesasGroup = despesasDim.group().reduceSum(d => {return parseFloat(d.vlrLiquido)});
 
   var despesasExtent = d3.extent(despesasGroup.all(), d => {return d.value});
   var despesasMin = despesasExtent[0];

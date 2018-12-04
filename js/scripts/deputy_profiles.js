@@ -69,6 +69,11 @@ const showcaseDeputado = (deputado) => {
 const filtrarPorDeputado = (dadosDeputado, despesasDeputado) => {
     $(seletores.graficoDespesas.main).empty();
     $(seletores.graficoDespesas.legenda).empty();
+
+    console.log(dadosDeputado);
+    console.log(despesasDeputado);
+
+
     graficoDespesas(despesasDeputado);
     deputadoSelecionado = dadosDeputado;
 };
