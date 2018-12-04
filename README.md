@@ -1,6 +1,11 @@
-# project-vis
+## Despesas da Câmara Legislativa
+Esse é um projeto feito para mostrar as despesas dos deputados no ano de 2018. A página conta com uma série de visualizações interativas para o usuário explorar os dados.
 
-## Arquivos de Visualização
+### Utilizado no Projeto
+- DC.js
+- D3.js
+- Materialize
+- JQuery
 
-[parlamentares.html](parlamentares.html)<br>
-[parlamentares_off.html](parlamentares_off.html)<br>
+### Notas
+Feito para a disciplina de Visualização Científica da Pós-Graduação em Ciências da Computação pela Universidade Federal do Ceará.
