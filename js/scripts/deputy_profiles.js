@@ -62,7 +62,7 @@ const showcaseDeputado = (deputado) => {
     $(`${showcase}`).css('display', 'block');
     $(`${showcase} .titulo`).text(capitalizeDeputado(deputado.nome));
     $(`${showcase} .subtitulo`).text(`${deputado.siglaPartido} - ${deputado.siglaUf}`);
-    $(`${showcase} .foto`).attr('src', `./../images/fotos_deputados/${deputado.id}.${ext}`);
+    $(`${showcase} .foto`).attr('src', `/images/fotos_deputados/${deputado.id}.${ext}`);
 };
 
 // FILTROS
