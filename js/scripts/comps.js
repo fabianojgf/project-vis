@@ -9,7 +9,7 @@ const desenharComps = (seletor, comparacoes) => {
 
     let colorScale = d3.scaleLinear().domain([1, comparacoes.length])
     .interpolate(d3.interpolateHcl)
-    .range([d3.rgb('#757575'), d3.rgb('#757575')]);
+    .range([d3.rgb('#eeeeee'), d3.rgb('#eeeeee')]);
     let sorted_comp = comparacoes.sort((a,b) => {return b.valor - a.valor});
 
     let rowChart = dc.rowChart(seletor);
