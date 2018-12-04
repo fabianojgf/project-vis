@@ -18,7 +18,7 @@ const buildProfiles = (seletor, paginacao, despesas, deputados) => {
                 let index = i*qtd_pagina + j*deputados_por_linha + k;
                 if(deputados[index]) { 
                     let id = deputados[index].id;
-                    let div = `<div class="foto-deputado" id="${id}"><img src="../../images/fotos_deputados/${id}.jpg"/></div>`
+                    let div = `<div class="foto-deputado" id="${id}"><img src="/images/fotos_deputados/${id}.jpg"/></div>`
                     $(`${seletor} .quadro.${i} .linha${j}`).append(div);     
                     $(`#${id}`).hover(() => {
                         showcaseDeputado(deputados[index]);
